@@ -6,19 +6,13 @@ const app = express();
 const PORT = process.env.PORT;
 
 //Middleware 
+app.use(express.static('./public'));
 app.use(expresslayout);
 
 app.set('view engine', 'ejs');
 app.set('layout', './layouts/main');
 
-app.get('/', (req,res) => {
-
-    const local = {
-        title: "Begining of the blog",
-        body: "This will explain the secrets you wanted to know. you deserve to know."
-    }
-    res.render('index', {local});
-});
+app.use('/', require('./server/route/main'));
 
 app.listen(PORT, () => {
     console.log(`server is listening to port ${PORT}`);
