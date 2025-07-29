@@ -49,14 +49,17 @@ textarea {
 }
 .btn-delete{
 }
-
+*/
 img {
-}*/
+    width: 100%;
+    height: auto;
+}
 
 /* layout */
 .container {
     max-width: 982px;
-    margin: 0 auto;
+    margin: 0  auto;
+    margin-bottom: 100px;
     padding: 0 10px;
 }
 

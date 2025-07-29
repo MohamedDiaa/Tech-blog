@@ -1,5 +1,7 @@
 <div>
-  <h1><%= local.title %></h1>
-  <img src="/img/pramidimg1.jpeg" alt="" width="400px" height="auto" />
-  <h3><%= local.body %></h3>
+  <% for( let index = 0; index < posts.length; index++ ) { %>
+  <h2><%= posts[index].title %></h2>
+  <p><%= posts[index].body %></p>
+  <img src="<%= posts[index].image %>" alt="" />
+  <% } %>
 </div>
