@@ -9,11 +9,23 @@ router.get("/", async (req, res) => {
   };
 
   let posts = await Post.find();
-  res.render("index", { local , posts});
+  res.render("index", { local, posts });
 });
 
+router.get("/about", async (req, res) => {
+  res.render("about");
+});
+
+router.get("/contact", async (req, res) => {
+  res.render("contact");
+});
+
+router.post('/contact', async (req,res) => {
+  console.log(req.body);
+})
+
 async function uploadServer() {
-  console.log('uploading data')
+  console.log("uploading data");
   try {
     const insert = await Post.insertMany([
       {

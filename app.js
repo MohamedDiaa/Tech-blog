@@ -10,6 +10,8 @@ connectDB();
 //Middleware 
 app.use(express.static('./public'));
 app.use(expresslayout);
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 app.set('view engine', 'ejs');
 app.set('layout', './layouts/main');
