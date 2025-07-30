@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post");
+const Contact = require("../models/Contact");
 
 router.get("/", async (req, res) => {
   const local = {
@@ -20,12 +21,21 @@ router.get("/contact", async (req, res) => {
   res.render("contact");
 });
 
-router.post('/contact', async (req,res) => {
+router.post("/contact", async (req, res) => {
   console.log(req.body);
-})
+  try {
+    await Contact.insertOne({
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  res.redirect("/");
+});
 
-async function uploadServer() {
-  console.log("uploading data");
+async function uploadServer() { console.log("uploading data");
   try {
     const insert = await Post.insertMany([
       {
