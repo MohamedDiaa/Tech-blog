@@ -74,15 +74,44 @@ router.get("/dashboard", async (req, res) => {
   } catch (error) {}
 });
 
-
-router.delete('/delete-post/:id', async(req,res)=> {
- 
+router.delete("/delete-post/:id", async (req, res) => {
   try {
-    const result = await Post.deleteOne({_id: req.params.id})
-    res.redirect('/dashboard');
+    const result = await Post.deleteOne({ _id: req.params.id });
+    res.redirect("/dashboard");
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-})
+});
 
+/**
+ * GET
+ * Admin - Add post
+ */
+router.get("/add-post", async (req, res) => {
+  try {
+    res.render("admin/add-post");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+/**
+ * POST
+ * Admin - save post
+ */
+router.post("/add-post", async (req, res) => {
+  try {
+   const post = await Post.create({
+      title: req.body.title,
+      body: req.body.body,
+      updatedAt: Date.now(),
+    });
+
+    console.log(`Created post ${post._id}`);
+    res.redirect('/dashboard');
+    
+  } catch (error) {
+    console.log(error);
+  }
+});
 module.exports = router;
