@@ -101,17 +101,44 @@ router.get("/add-post", async (req, res) => {
  */
 router.post("/add-post", async (req, res) => {
   try {
-   const post = await Post.create({
+    const post = await Post.create({
       title: req.body.title,
       body: req.body.body,
       updatedAt: Date.now(),
     });
 
     console.log(`Created post ${post._id}`);
-    res.redirect('/dashboard');
-    
+    res.redirect("/dashboard");
   } catch (error) {
     console.log(error);
   }
 });
+
+/**
+ * GET
+ * Admin - Edit Post
+ */
+router.get("/edit-post/:id", async (req, res) => {
+  try {
+    const post = await Post.findById({ _id: req.params.id });
+    res.render("admin/edit-post", { post });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.put("/edit-post/:id", async (req, res) => {
+  try {
+    await Post.findByIdAndUpdate(req.params.id, {
+      title: req.body.title,
+      body: req.body.body,
+      updatedAt: Date.now(),
+    });
+
+    res.redirect(`/edit-post/${req.params.id}`);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = router;

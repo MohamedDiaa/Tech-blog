@@ -172,6 +172,7 @@ img {
 
 .admin-post-controls form {
     display: inline-block;
+
 }
 
 .admin-post-controls .btn {
@@ -187,6 +188,6 @@ img {
 
 .admin-posts li {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     padding: 10px 0;
 }
