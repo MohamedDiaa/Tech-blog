@@ -26,7 +26,8 @@ router.get("/admin", async (req, res) => {
 router.post("/admin", async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = User.findOne({ username });
+    const user = await User.findOne({ username });
+    console.log("password", user.password);
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
@@ -35,8 +36,7 @@ router.post("/admin", async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    res.redirect('/dashboard');
-
+    res.redirect("/dashboard");
   } catch (error) {
     console.log(error);
   }
@@ -67,13 +67,22 @@ router.post("/register", async (req, res) => {
  * GET
  * Admin Dashboard
  */
-// router.get('/dashboard', async (req,res) => {
-//   try {
-    
+router.get("/dashboard", async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.render("admin/dashboard", { posts, layout: adminLayout });
+  } catch (error) {}
+});
 
-//   } catch (error) {
-    
-//   }
-// })
+
+router.delete('/delete-post/:id', async(req,res)=> {
+ 
+  try {
+    const result = await Post.deleteOne({_id: req.params.id})
+    res.redirect('/dashboard');
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 module.exports = router;
